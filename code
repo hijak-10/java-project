@@ -1,0 +1,572 @@
+import java.awt.Frame;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Font;
+import java.awt.event.*;
+import java.lang.*;
+import java.awt.*;
+import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+
+
+class project extends Frame implements ActionListener,ItemListener
+{
+    Label un,up,l1,num;
+    TextField tx1,tx2,tx3;
+    Checkbox ch1;
+    Button b1,b2;
+    BufferedImage bk;
+   // static String s1=open.userName;
+    //static String s2=open.password;
+    
+   
+    project(String s)
+    {
+       
+        super(s);
+         try
+        {
+            bk=ImageIO.read(new File("F:\\New folder\\you.jpg"));
+        }
+        catch(Exception ae)
+        {}
+        
+        setVisible(true);
+        setResizable(false);
+        setSize(900, 500);
+        setLayout(null);
+        setLocation(220, 130);
+        Font f0=new Font("Times New Roman",Font.BOLD,15);
+        setFont(f0);
+        //setBackground(Color.black);
+        //setForeground(Color.white);
+        addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){System.exit(0);}});
+        l1=new Label(" Login Credentials");
+        l1.setSize(142,20);
+        l1.setLocation(230,115);
+        add(l1);
+        un=new Label(" Enter Username : ");
+        un.setSize(137,22);
+        un.setLocation(150, 160);
+        add(un);
+        tx1=new TextField();
+        tx1.setSize(130,27);
+        tx1.setLocation(300,160);
+        add(tx1);
+        num=new Label(" Phone Number :");
+        num.setSize(128,22);
+        
+        num.setLocation(150, 200);
+        add(num);
+         tx3=new TextField();
+         tx3.setSize(130,27);
+         tx3.setLocation(300,200);
+        add(tx3);
+        up=new Label(" Password : ");
+        up.setSize(90,22);
+        up.setLocation(150,240);
+        add(up);
+        tx2=new TextField();
+        tx2.setEchoChar('*');
+        tx2.setSize(130,27);
+       
+        tx2.setLocation(300,240);
+        add(tx2);
+        ch1=new Checkbox(" Show Password ");
+        ch1.setSize(140,20);
+        ch1.setLocation(230,280);
+         add(ch1);      
+        b1=new Button("Login");
+        b1.setSize(80,30);
+        b1.setLocation(227,318);
+        add(b1);
+        b2=new Button("Register");
+        b2.setSize(100,30);
+        b2.setLocation(330,318);
+        add(b2);
+        /*l2=new Label();
+        l2.setSize(100,25);
+        l2.setLocation(245,250);
+        add(l2);*/
+        b1.addActionListener(this); 
+        b2.addActionListener(this);
+        ch1.addItemListener(this);
+        
+    }
+    public void paint(Graphics g)
+    {
+       super.paint(g);
+       g.drawImage(bk,0,0,900,500,null);
+    }
+    @Override
+  public void actionPerformed(ActionEvent ae) 
+        {
+            if(ae.getSource()==b1)
+            {
+                
+                String UserName = tx1.getText();
+                String Password = tx2.getText();
+                String NUMBER = tx3.getText();
+                if (UserName.equals(open.userName) && Password.equals(open.password) && NUMBER.equals(open.number)) 
+                {
+                      JOptionPane.showMessageDialog(this, "     Login Successful !!");
+                      b2.setEnabled(false);
+                      new infoshow(" USER INFORMATION ");
+                      
+                } 
+                else 
+                {
+                     JOptionPane.showMessageDialog(this, "     Login Failed, Try again !! "); 
+                     b2.setEnabled(true);
+                }
+            }
+            if(ae.getSource()==b2)
+            {
+                new open("Register");
+                this.dispose();
+            }
+            
+        }
+  @Override
+   public void itemStateChanged(ItemEvent e)
+  {
+      if (e.getSource() == ch1) 
+      {
+               if (ch1.getState()) 
+            {
+                tx2.setEchoChar((char) 0);
+            } 
+               else 
+            {
+                tx2.setEchoChar('*');
+            }
+      }
+  }
+   
+
+    public static void main (String[] args)
+    {
+        project f=new project("Doctor's Registration Desk"); 
+         
+    }
+
+}
+class open extends Frame implements ActionListener,ItemListener
+{     
+    public static String userName,naming;
+    public static String password,number;
+    public static String date ;
+    public static String appointment_date;
+    public static String age ;
+    public static String time ;
+    public static String doctortype ;    
+    Label fn,ln,un,up,l1,l2,l3,l4,l5,l6,l7,l8;
+    TextField tx1,tx2,tx3,tx4,tx5,tx6,tx7,tx8,tx9,tx10;
+    BufferedImage bk1;
+    Button b1;
+    Checkbox ch11,ch12;
+    CheckboxGroup cg;
+    Choice c25;
+      
+   
+   open(String s)
+    {
+        super(s);
+        try
+        {
+            bk1=ImageIO.read(new File("F:\\New folder\\bg.jpg"));
+        }
+        catch(Exception ae)
+        {}
+        setVisible(true);
+        setSize(900,550);
+        setLocation(220,100);
+        setLayout(null);
+        Font f0=new Font("Times New Roman",Font.BOLD,13);
+        setFont(f0);        
+        addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){System.exit(0);}});
+        l1=new Label(" ENTER DETAILS ");
+        l1.setSize(114,20);
+        l1.setLocation(130,65);
+        add(l1);
+        fn=new Label(" First Name :");
+        fn.setSize(85,20);
+        fn.setLocation(50,100);
+        add(fn);
+        tx8=new TextField();
+        tx8.setSize(200,20);
+        tx8.setLocation(150,100);
+        add(tx8);
+        ln=new Label(" Last Name :");
+        ln.setSize(80,20);
+        ln.setLocation(50,130);
+        add(ln);
+        tx9=new TextField();
+        tx9.setSize(200,20);
+        tx9.setLocation(150,130);
+        add(tx9);
+        un=new Label(" Enter Username : ");
+        un.setSize(115,20);
+        un.setLocation(50,160);
+        add(un);
+        tx1=new TextField();
+        tx1.setSize(180,20);
+        tx1.setLocation(170,160);
+        add(tx1);
+        up=new Label(" Password : ");
+        up.setSize(77,20);
+        up.setLocation(50,190);
+        add(up);
+        tx2=new TextField();
+        //tx2.setEchoChar('*');
+        tx2.setSize(180,20);
+        tx2.setLocation(170,190);
+        add(tx2);
+        l8=new Label(" Phone Number :");
+        l8.setSize(110,20);
+        l8.setLocation(50,220);
+        add(l8);
+        tx10=new TextField();
+        tx10.setSize(180,20);
+        tx10.setLocation(170,220);
+        add(tx10);
+        
+        
+        l3=new Label(" D.O.B (DD/MM/YYYY) :");
+        l3.setSize(150,20);
+        l3.setLocation(50,250);
+        add(l3);
+        tx3=new TextField();
+        tx3.setSize(140,20);
+        tx3.setLocation(210,250);
+        add(tx3);
+        l4=new Label(" D.O.A (DD/MM/YYYY) :");
+        l4.setSize(150,20);
+        l4.setLocation(50,280);
+        add(l4);
+        tx4=new TextField();
+        tx4.setSize(140,20);
+        tx4.setLocation(210,280);
+        add(tx4);
+        l5=new Label(" Age (number) :");
+        l5.setSize(100,20);
+        l5.setLocation(50,310);
+        add(l5);
+        tx5=new TextField();
+        tx5.setSize(180,20);
+        tx5.setLocation(170,310);
+        add(tx5);
+        l6=new Label(" Time of Appointment :");
+        l6.setSize(150,20);
+        l6.setLocation(50,340);
+        add(l6);
+        cg=new CheckboxGroup();
+        ch11=new Checkbox("5:00-6:00 (PM)",cg,false);
+        ch11.setSize(110,20);
+        ch11.setLocation(208,340);
+        add(ch11);
+        ch12=new Checkbox("6:00-7:00 (PM)",cg,false);
+        ch12.setSize(110,20);
+        ch12.setLocation(208,370);
+        add(ch12);
+        /*tx6=new TextField();
+        tx6.setSize(180,20);
+        tx6.setLocation(170,310);
+        add(tx6);*/       
+        l7=new Label(" Doctor :");
+        l7.setSize(60,20);
+        l7.setLocation(50,370);
+        add(l7);
+        c25=new Choice();
+        c25.setSize(150,25);
+        c25.setLocation(170,400);
+        add(c25);
+        c25.add("ENT");
+        c25.add("Dentist");
+        c25.add("Gynaecologist");
+        c25.add("Paediatrician");
+        c25.add("Neurologist");
+        c25.add("Cardiologist");
+        c25.add("Radiologist"); 
+        /*tx7=new TextField();
+        tx7.setSize(180,20);
+        tx7.setLocation(170,370);
+        add(tx7);*/
+        Font f29=new Font("Arial Black",Font.BOLD,20);
+        b1=new Button("Register");
+        b1.setFont(f29);
+        b1.setSize(130,30);
+        b1.setLocation(145,440);
+        add(b1);
+        /*l2=new Label();
+        l2.setSize(400,25);
+        l2.setLocation(50,440);
+       add(l2);*/
+        b1.addActionListener(this); 
+        ch11.addItemListener(this);
+        ch12.addItemListener(this);
+        c25.addItemListener(this);
+        
+    }
+        
+   public void paint(Graphics g)
+    {
+       super.paint(g);
+       g.drawImage(bk1,0,0,900,550,null);
+    }
+   @Override
+  public void actionPerformed(ActionEvent ae) 
+        {
+            if(ae.getSource()==b1)
+            {
+                 
+                naming = tx8.getText();
+                 userName = tx1.getText();
+                 password = tx2.getText();
+                 date = tx3.getText();
+                 appointment_date = tx4.getText();
+                 age = tx5.getText();
+                 number =tx10.getText();
+                 if(naming.equals("") || userName.equals("") || date.equals("") || age.equals("") || appointment_date.equals("") || number.equals(""))
+                 {
+                     JOptionPane.showMessageDialog(this, " Please fill up all the details correctly as instructed. ");
+                 }else
+                 {
+                     JOptionPane.showMessageDialog(this, " Hello " +naming+ ", You have been registered succesfully.");
+                     b1.setEnabled(false);
+                     new project("Doctor's Registration Desk");
+                     this.dispose();
+                 }
+            }
+        }
+  @Override
+  public void itemStateChanged(ItemEvent e)
+  {
+      if(e.getSource()==ch11)
+      {
+             if(ch11.getState())
+              {
+                  time = ch11.getLabel();
+              }
+      }
+      if(e.getSource()==ch12)
+      {
+               if(ch12.getState())
+                  {
+                      time= ch12.getLabel();
+                  }
+      }
+      if(e.getSource()==c25)
+      {
+          doctortype = paramString();
+      }
+  }
+   
+
+   
+}
+
+
+ class infoshow extends Frame implements ActionListener
+{     
+      
+    Label fn,ln,un,up,l1,l2,l3,l4,l5,l6,l7,l8;
+    Button b1,b2;
+   
+      
+   
+ infoshow(String s)
+    {
+        super(s);
+       
+        setVisible(true);
+        setSize(900,550);
+        setLocation(220,100);
+        setLayout(null);
+        Font f0=new Font("Times New Roman",Font.BOLD,13);
+        setFont(f0);        
+        addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){System.exit(0);}});
+        l1=new Label("  DETAILS ");
+        l1.setSize(300,20);
+        l1.setLocation(130,65);
+        add(l1);
+        fn =new Label(" First Name :" +open.naming );
+        fn.setSize(300,20);
+        fn.setLocation(50,100);
+        add(fn);
+       
+       
+        un=new Label(" Enter Username : "+ open.userName );
+        un.setSize(300,20);
+        un.setLocation(50,160);
+        add(un);
+        
+        up=new Label(" Password : "+ open.password);
+        up.setSize(300,20);
+        up.setLocation(50,190);
+        add(up);
+       
+        l8=new Label(" Phone Number :"+ open.number );
+        l8.setSize(300,20);
+        l8.setLocation(50,220);
+        add(l8);
+       
+        
+        
+        l3=new Label(" D.O.B (DD/MM/YYYY) :"+ open.date);
+        l3.setSize(300,20);
+        l3.setLocation(50,250);
+        add(l3);
+        l4=new Label(" D.O.A (DD/MM/YYYY) :"+ open.appointment_date);
+        l4.setSize(300,20);
+        l4.setLocation(50,280);
+        add(l4);
+        
+        l5=new Label(" Age (number) :"+ open.age);
+        l5.setSize(300,20);
+        l5.setLocation(50,310);
+        add(l5);
+        
+        l6=new Label(" Time of Appointment :"+ open.time);
+        l6.setSize(300,20);
+        l6.setLocation(50,340);
+        add(l6);
+        l7=new Label(" Doctor :"+ open.doctortype);
+        l7.setSize(200,20);
+        l7.setLocation(50,370);
+        add(l7);
+        
+        Font f29=new Font("Arial Black",Font.BOLD,20);
+        b1=new Button("POSTPONE  APPOINTMENT ");
+        b1.setFont(f29); 
+        b1.setSize(300,30);
+        b1.setLocation(145,440);
+        add(b1);
+  
+        b2=new Button("go back ");
+        b2.setFont(f29); 
+        b2.setSize(300,30);
+        b2.setLocation(145,480);
+        add(b2);
+       
+        b1.addActionListener(this); 
+        b2.addActionListener(this);
+    }
+        
+  
+   @Override
+  public void actionPerformed(ActionEvent ae) 
+        {
+    if(ae.getSource()==b2)
+            {
+                 
+
+                 
+                     
+                     b2.setEnabled(false);
+                     new project ("DOCTORS REGISTRATION DESK");
+                     this.dispose();
+                 }
+            
+      else
+      {
+                     b1.setEnabled(false);
+                     new change ("postpone appointment ");
+                     this.dispose();
+      
+      }
+        }
+           
+ }
+ 
+   
+
+       
+
+
+class change extends Frame  implements ActionListener{  
+     TextField tf1;
+     BufferedImage bkkk;
+     Button b1;
+     Label jj, l1 ,l2 ;
+  change(String s)
+   {  
+        super(s);
+       try
+        {
+            bkkk=ImageIO.read(new File("F:\\New folder\\qwe.jpg"));
+        }
+        catch(Exception e)
+        {}
+        Font f0=new Font("Times New Roman",Font.BOLD,13);
+        setFont(f0);
+         setSize(600,400);
+         setLocation(320,160);
+        setVisible(true);
+        setLayout(null);
+        l1 = new Label();
+        l1.setText("ENTER NEW DATE :");
+        l1.setSize(130, 20);
+        l1.setLocation(300,150);
+        this.add(l1);
+        tf1=new TextField();  
+        tf1.setSize(100,22);
+        tf1.setLocation(440,150);
+        this.add(tf1);
+        l2 = new Label();
+        l2.setText("(DD/MM/YYYY)");
+        l2.setSize(100, 20);
+        l2.setLocation(315,177);
+        this.add(l2);
+        b1 = new Button(" ENTER ");
+        b1.setSize(62,30);
+        b1.setLocation(400,215);
+        this.add(b1);
+        jj = new Label();  
+        jj.setSize(170,25);
+        jj.setLocation(210,280);
+        this.add(jj);
+        
+        addWindowListener(new WindowAdapter(){public void windowClosing(WindowEvent e){System.exit(0);}});           
+        b1.addActionListener(this);  
+
+    } 
+  @Override
+  public void paint(Graphics g)
+    {
+       super.paint(g);
+       g.drawImage(bkkk,0,0,600,400,null);
+    }
+  @Override
+    public void actionPerformed(ActionEvent e) 
+    {  
+        if(e.getSource()==b1)
+        {
+            String s1=tf1.getText(); 
+            if(s1.equals(""))
+            {
+                JOptionPane.showMessageDialog(this, " Enter the date properly as instructed.  "+s1);
+            }
+            else 
+            {
+                open.appointment_date=tf1.getText();
+               JOptionPane.showMessageDialog(this, "Appointment date changed successfully to : "+s1);
+               jj.setText(" NEW DATE :  "+tf1.getText());
+               b1.setEnabled(true);
+              new project("Doctor's Registration Desk");
+                     this.dispose();
+            }
+        }
+
+
+
+    }  
+   
+
+}
